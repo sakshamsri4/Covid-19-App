@@ -1,3 +1,4 @@
+import 'package:corona/screens/indian_screen.dart';
 import 'package:corona/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final List _screens = [
     HomeScreen(),
     StateScreen(),
-    Scaffold(),
+    IndianScreen(),
     Scaffold(),
     Scaffold(),
   ];
@@ -32,7 +33,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
           elevation: 0.0,
-          items: [Icons.home, Icons.insert_chart, Icons.event_note, Icons.info]
+          items: [Icons.home, Icons.insert_chart, Icons.event_note]
               .asMap()
               .map((key, value) => MapEntry(
                     key,

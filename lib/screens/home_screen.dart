@@ -1,11 +1,11 @@
 import 'package:corona/config/palette.dart';
 import 'package:corona/config/styles.dart';
 import 'package:corona/data/data.dart';
-import 'package:corona/widgets/country_dropdown.dart';
 import 'package:corona/widgets/custom_app_bar.dart';
 import 'package:corona/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -55,11 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CountryDropdown(
-                  //countries: ['CN', 'FR', 'IN', 'IT', 'UK', 'USA'],
-                  countries: ['IN'],
-                  country: _country,
-                  onChanged: (val) => setState(() => _country = val),
+                CircleAvatar(
+                  radius: 25.0,
+                  child: Image.asset(
+                      'assets/images/${_country.toLowerCase()}_flag.png'),
                 ),
               ],
             ),
@@ -94,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     FlatButton.icon(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        launch('tel:112');
+                      },
                       color: Colors.red,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
@@ -108,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     FlatButton.icon(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        launch('sms:112');
+                      },
                       color: Colors.blue,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
@@ -200,13 +203,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),
-                Text(
+                //FlatButton(),
+                /*Text(
                   'Follow the instructions\nto do your own test.',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
                   ),
                   maxLines: 2,
+                ),*/
+                FlatButton(
+                  onPressed: () {
+                    launch(
+                        "https://covid.apollo247.com/?utm_source=linkedin&utm_medium=organic&utm_campaign=bot_scanner");
+                  },
+                  //   'https://covid.apollo247.com/?utm_source=linkedin&utm_medium=organic&utm_campaign=bot_scanner'),
+                  child: Text(
+                    'Follow the instructions\nto do your own test.',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  ),
                 ),
               ],
             )

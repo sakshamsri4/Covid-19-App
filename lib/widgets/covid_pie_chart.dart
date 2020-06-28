@@ -1,44 +1,34 @@
 import 'package:corona/config/palette.dart';
-import 'package:corona/screens/stats_screen.dart';
-import 'package:corona/widgets/stats_grid.dart';
-import 'package:corona/widgets/stats_grid_gloabal.dart';
+import 'package:corona/screens/indian_state.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart'; // import the package
 
-class CovidBarState extends StatefulWidget {
+int count = 0;
+
+class CovidPieState extends StatefulWidget {
   // final List<int> covidCases;
 
-  //const CovidBarState({Key key, this.covidCases}) : super(key: key);
+  // const CovidBarState({Key key, this.covidCases}) : super(key: key);
 
   @override
-  _CovidBarStateState createState() => _CovidBarStateState();
+  _CovidPieStateState createState() => _CovidPieStateState();
 }
 
-class _CovidBarStateState extends State<CovidBarState> {
+class _CovidPieStateState extends State<CovidPieState> {
   Map<String, double> data1 = new Map();
-/*  void initState() {
-    data1.addAll(
-        {'Total': 25.0, 'Deaths': 25.0, 'Recovered': 25.00, 'Active': 25.0});
-  }*/
 
   @override
   Widget build(BuildContext context) {
     List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
-    data1.addAll({'Deaths': 25.0, 'Recovered': 25.0, 'Active': 25.0});
 
-    if (currentTap == 0) {
+    // print(dataIndianState[0]);
+    setState(() {
       data1.addAll({
-        'Deaths': dataIndia[0] * 1.0,
-        'Recovered': dataIndia[1] * 1.0,
-        'Active': dataIndia[2] * 1.0
+        'Deaths': dataIndianState[0] * 1.0,
+        'Recovered': dataIndianState[1] * 1.0,
+        'Active': dataIndianState[2] * 1.0
       });
-    } else {
-      data1.addAll({
-        'Deaths': dataGlobal[0] * 1.0,
-        'Recovered': dataGlobal[1] * 1.0,
-        'Active': dataGlobal[2] * 1.0
-      });
-    }
+    });
     return Container(
       height: 350.0,
       decoration: BoxDecoration(
@@ -76,7 +66,7 @@ class _CovidBarStateState extends State<CovidBarState> {
               //determines the size of the chart
               showChartValuesInPercentage: true,
               showChartValues: true,
-              showChartValuesOutside: false,
+              showChartValuesOutside: true,
               chartValueBackgroundColor: Colors.grey[200],
               showLegends: false,
               //legendPosition: LegendPosition.right,

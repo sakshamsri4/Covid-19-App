@@ -1,8 +1,44 @@
+import 'package:corona/data/services.dart';
 import 'package:flutter/material.dart';
 
-class StatsGrid extends StatelessWidget {
+List<int> dataIndia = [];
+
+class StatsGrid extends StatefulWidget {
+  @override
+  _StatsGridState createState() => _StatsGridState();
+}
+
+class _StatsGridState extends State<StatsGrid> {
+  Future<Summary> futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchNationalData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<Summary>(
+      future: futureAlbum,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data.total.toString());
+          return test(snapshot.data);
+          // return Text('${snapshot.data}');
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
+  Widget test(Summary summary) {
+    dataIndia.add(summary.deaths);
+    dataIndia.add(summary.discharged);
+    dataIndia.add(summary.total - (summary.deaths + summary.discharged));
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(
@@ -10,17 +46,22 @@ class StatsGrid extends StatelessWidget {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Total Cases', '1.81 M', Colors.orange),
-                _buildStatCard('Deaths', '105 K', Colors.red),
+                _buildStatCard(
+                    'Total Cases India', '${summary.total}', Colors.orange),
+                _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Recovered', '391 K', Colors.green),
-                _buildStatCard('Active', '1.31 M', Colors.lightBlue),
-                _buildStatCard('Critical', 'N/A', Colors.purple),
+                _buildStatCard(
+                    'Recovered', '${summary.discharged}', Colors.green),
+                _buildStatCard(
+                    'Active',
+                    '${summary.total - (summary.deaths + summary.discharged)}',
+                    Colors.lightBlue),
+                // _buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),
           ),

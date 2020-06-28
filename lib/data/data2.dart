@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:corona/data/services.dart';
 
 class DataTwo {
-  Widget a;
-  DataTwo({this.a});
+  Summary summary;
 }

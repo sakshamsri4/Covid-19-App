@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:corona/data/data2.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<Summary> fetchNationalData() async {
@@ -51,41 +49,93 @@ class Summary {
   }
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+Future<GlobalSummary> fetchGlobalData() async {
+  final response = await http.get('https://api.covid19api.com/summary');
+  // print(response.body);
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    var myData = json.decode(response.body);
+    // print(myData);
+    var rest = myData["Global"];
+    // print(rest);
+    return GlobalSummary.fromJson(rest);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+class GlobalSummary {
+  final int newConfirmed;
+  final int totalConfirmed;
+  final int newDeaths;
+  final int totalDeaths;
+  final int newRecovered;
+  final int totalRecovered;
+
+  GlobalSummary(
+      {this.newConfirmed,
+      this.totalConfirmed,
+      this.newDeaths,
+      this.totalDeaths,
+      this.newRecovered,
+      this.totalRecovered});
+
+  factory GlobalSummary.fromJson(Map<String, dynamic> json) {
+    return GlobalSummary(
+      newConfirmed: json["NewConfirmed"],
+      totalConfirmed: json["TotalConfirmed"],
+      newDeaths: json["NewDeaths"],
+      totalDeaths: json["TotalDeaths"],
+      newRecovered: json["NewRecovered"],
+      totalRecovered: json["TotalRecovered"],
+    );
   }
+}
 
-  Future<Summary> futureAlbum;
-
-  @override
-  void initState() {
-    super.initState();
-    futureAlbum = fetchNationalData();
+Future<List<Regional>> fetchRegionalData() async {
+  List<Regional> list;
+  final response = await http.get(
+      'https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true');
+  // print(response.body);
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    var myData = json.decode(response.body);
+    // print(myData);
+    var rest = myData["regionData"] as List;
+    // print(rest);
+    list = rest.map<Regional>((json) => Regional.fromJson(json)).toList();
+    return list;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
   }
+}
 
+class Regional {
+  final int totalInfected;
+  final int recovered;
+  final int deceased;
+  final String region;
+  final int totalCases;
 
-  FutureBuilder<Summary>(
-  future: futureAlbum,
-  builder: (context, snapshot) {
-  if (snapshot.hasData) {
-  print(snapshot.data.total.toString());
-  return DataTwo(snapshot.data);
-  // return Text('${snapshot.data}');
-  } else if (snapshot.hasError) {
-  return Text("${snapshot.error}");
+  Regional(
+      {this.totalInfected,
+      this.recovered,
+      this.deceased,
+      this.region,
+      this.totalCases});
+  factory Regional.fromJson(Map<String, dynamic> json) {
+    return Regional(
+      totalInfected: json["totalInfected"],
+      recovered: json["recovered"],
+      deceased: json["deceased"],
+      region: json["region"],
+      totalCases: json["totalCases"],
+    );
   }
-
-  // By default, show a loading spinner.
-  return CircularProgressIndicator();
-  },
-  );
-
-
 }
