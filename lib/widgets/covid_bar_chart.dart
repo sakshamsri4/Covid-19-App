@@ -1,7 +1,6 @@
 import 'package:corona/config/palette.dart';
+import 'package:corona/data/data.dart';
 import 'package:corona/screens/stats_screen.dart';
-import 'package:corona/widgets/stats_grid.dart';
-import 'package:corona/widgets/stats_grid_gloabal.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart'; // import the package
 
@@ -15,30 +14,57 @@ class CovidBarState extends StatefulWidget {
 }
 
 class _CovidBarStateState extends State<CovidBarState> {
+  StateScreen stateScreen = StateScreen();
+
   Map<String, double> data1 = new Map();
-/*  void initState() {
-    data1.addAll(
-        {'Total': 25.0, 'Deaths': 25.0, 'Recovered': 25.00, 'Active': 25.0});
-  }*/
 
   @override
   Widget build(BuildContext context) {
     List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
-    data1.addAll({'Deaths': 25.0, 'Recovered': 25.0, 'Active': 25.0});
+    // data2.addAll({'Deaths': 25.0, 'Recovered': 25.0, 'Active': 25.0});
 
-    if (currentTap == 0) {
-      data1.addAll({
-        'Deaths': dataIndia[0] * 1.0,
-        'Recovered': dataIndia[1] * 1.0,
-        'Active': dataIndia[2] * 1.0
-      });
-    } else {
-      data1.addAll({
-        'Deaths': dataGlobal[0] * 1.0,
-        'Recovered': dataGlobal[1] * 1.0,
-        'Active': dataGlobal[2] * 1.0
-      });
-    }
+    setState(() {
+      int currentTap = StateScreen.getIndex();
+//      if (currentTap == null) currentTap = 0;
+      print("current tap=${currentTap}");
+      if (currentTap == 0) {
+        List<int> indiaDataVariable = IndiaData.getIndiaData();
+        print("India");
+        data1.addAll({
+          'Deaths': indiaDataVariable[1] * 1.0,
+          'Recovered': indiaDataVariable[2] * 1.0,
+          'Active': indiaDataVariable[3] * 1.0
+        });
+      } else {
+        List<int> globalDataVariable = GlobalData.getGlobalData();
+        print(currentTap);
+        data1.addAll({
+          'Deaths': globalDataVariable[1] * 1.0,
+          'Recovered': globalDataVariable[2] * 1.0,
+          'Active': globalDataVariable[3] * 1.0
+        });
+      }
+    });
+    /*setState(() {
+      //  int currentTap = 0;
+      if (currentTap == 0) {
+        indiaDataVariable = IndiaData.getIndiaData();
+        data1.addAll({
+          'Deaths': indiaDataVariable[0] * 1.0,
+          'Recovered': indiaDataVariable[1] * 1.0,
+          'Active': indiaDataVariable[2] * 1.0
+        });
+      } else {
+        globalDataVariable = GlobalData.getGlobalData();
+
+        data1.addAll({
+          'Deaths': globalDataVariable[0] * 1.0,
+          'Recovered': globalDataVariable[1] * 1.0,
+          'Active': globalDataVariable[2] * 1.0
+        });
+      }
+    });*/
+
     return Container(
       height: 350.0,
       decoration: BoxDecoration(
@@ -90,7 +116,7 @@ class _CovidBarStateState extends State<CovidBarState> {
               ),
               chartType: ChartType.disc, //can be changed to ChartType.ring
             ),
-          )
+          ),
         ],
       ),
     );

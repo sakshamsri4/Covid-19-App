@@ -3,8 +3,6 @@ import 'package:corona/screens/indian_state.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart'; // import the package
 
-int count = 0;
-
 class CovidPieState extends StatefulWidget {
   // final List<int> covidCases;
 

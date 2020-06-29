@@ -2,7 +2,7 @@ import 'package:corona/data/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-List<int> dataGlobal = [];
+List<int> globalData = [];
 
 class StatsGridGlobal extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class StatsGridGlobal extends StatefulWidget {
 
 class _StatsGridGlobalState extends State<StatsGridGlobal> {
   Future<GlobalSummary> futureAlbum;
+//  GlobalData globalData = GlobalData();
   @override
   void initState() {
     super.initState();
@@ -22,7 +23,7 @@ class _StatsGridGlobalState extends State<StatsGridGlobal> {
       future: futureAlbum,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // print(snapshot.data.total.toString());
+          // print(snapshot.data.newConfirmed.toString());
           return test(snapshot.data);
           // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
@@ -36,10 +37,17 @@ class _StatsGridGlobalState extends State<StatsGridGlobal> {
   }
 
   Widget test(GlobalSummary globalSummary) {
-    dataGlobal.add(globalSummary.totalDeaths);
-    dataGlobal.add(globalSummary.totalRecovered);
-    dataGlobal.add(globalSummary.totalConfirmed -
-        (globalSummary.totalRecovered + globalSummary.totalDeaths));
+    /* globalData.add(globalSummary.totalDeaths);
+    globalData.add(globalSummary.totalRecovered);
+    globalData.add(globalSummary.totalConfirmed -
+        (globalSummary.totalRecovered + globalSummary.totalDeaths));*/
+
+    /*  GlobalData.setGlobalData(
+        globalSummary.totalDeaths,
+        globalSummary.totalRecovered,
+        globalSummary.totalConfirmed -
+            (globalSummary.totalRecovered + globalSummary.totalDeaths));
+*/
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       //color: Colors.yellow,

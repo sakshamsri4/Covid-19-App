@@ -7,14 +7,16 @@ import 'package:corona/widgets/stats_grid.dart';
 import 'package:corona/widgets/stats_grid_gloabal.dart';
 import 'package:flutter/material.dart';
 
-int currentTap = 0;
-
 class StateScreen extends StatefulWidget {
   @override
   _StateScreenState createState() => _StateScreenState();
+  static int getIndex() {
+    _StateScreenState.getIndex();
+  }
 }
 
 class _StateScreenState extends State<StateScreen> {
+  static int currentTap = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +58,11 @@ class _StateScreenState extends State<StateScreen> {
         ),
       ),
     );
+  }
+
+  static int getIndex() {
+    print("current tap ${currentTap}");
+    return currentTap;
   }
 
   SliverToBoxAdapter _buildRegionTabBar() {

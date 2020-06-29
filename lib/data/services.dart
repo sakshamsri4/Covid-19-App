@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:corona/data/data.dart';
 import 'package:http/http.dart' as http;
 
 Future<Summary> fetchNationalData() async {
@@ -13,7 +14,18 @@ Future<Summary> fetchNationalData() async {
     // print(myData);
     var rest = myData["data"];
     // print(rest);
-    return Summary.fromJson(rest["summary"]);
+
+    Summary ob = Summary.fromJson(rest["summary"]);
+    // IndiaData.setIndiaData(
+    //    ob.deaths, ob.discharged, ob.total - (ob.deaths + ob.discharged));
+    // print(ob.deaths);
+    IndiaData.setIndiaData(ob.total, ob.deaths, ob.discharged,
+        ob.total - (ob.deaths + ob.discharged));
+    // IndiaData.getIndiaData();
+    //List<int> abc = IndiaData.getIndiaData();
+
+    return ob;
+    // return Summary.fromJson(rest["summary"]);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -59,7 +71,26 @@ Future<GlobalSummary> fetchGlobalData() async {
     // print(myData);
     var rest = myData["Global"];
     // print(rest);
-    return GlobalSummary.fromJson(rest);
+    GlobalSummary ob = GlobalSummary.fromJson(myData["Global"]);
+    /* GlobalData.setGlobalData(
+        ob.totalConfirmed,
+        ob.totalDeaths,
+        ob.totalRecovered,
+        ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));*/
+    //  List<int> abc = GlobalData.getGlobalData();
+    //  print(abc[0]);
+    // print(ob.totalConfirmed);
+    //  print(ob.totalDeaths);
+
+    GlobalData.setGlobalData(
+        ob.totalConfirmed,
+        ob.totalDeaths,
+        ob.totalRecovered,
+        (ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths)));
+
+    // print(ob.totalRecovered);
+    // print(ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));
+    return ob;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

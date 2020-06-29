@@ -10,6 +10,8 @@ class StatsGrid extends StatefulWidget {
 
 class _StatsGridState extends State<StatsGrid> {
   Future<Summary> futureAlbum;
+//  IndiaData indiaData = IndiaData();
+
   @override
   void initState() {
     super.initState();
@@ -22,7 +24,7 @@ class _StatsGridState extends State<StatsGrid> {
       future: futureAlbum,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data.total.toString());
+          // print(snapshot.data.total.toString());
           return test(snapshot.data);
           // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
@@ -36,9 +38,11 @@ class _StatsGridState extends State<StatsGrid> {
   }
 
   Widget test(Summary summary) {
-    dataIndia.add(summary.deaths);
+    //IndiaData.setIndiaData(summary.deaths, summary.discharged,
+    //  summary.total - (summary.deaths + summary.discharged));
+    /* dataIndia.add(summary.deaths);
     dataIndia.add(summary.discharged);
-    dataIndia.add(summary.total - (summary.deaths + summary.discharged));
+    dataIndia.add(summary.total - (summary.deaths + summary.discharged));*/
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(

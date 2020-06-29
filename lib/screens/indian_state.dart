@@ -39,9 +39,7 @@ class _IndianStateState extends State<IndianState> {
     );
   }
 
-  List<Regional> reg;
   Widget test(List<Regional> regional) {
-    reg = regional;
     //  dataIndianState = [];
     dataIndianState.addAll({
       regional[v].deceased,
@@ -51,7 +49,6 @@ class _IndianStateState extends State<IndianState> {
     dataIndianState[0] = regional[v].deceased;
     dataIndianState[1] = regional[v].recovered;
     dataIndianState[2] = regional[v].totalInfected;
-    print(dataIndianState.length);
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       margin: const EdgeInsets.symmetric(vertical: 10.0),
