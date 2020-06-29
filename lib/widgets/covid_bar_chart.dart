@@ -23,7 +23,7 @@ class _CovidBarStateState extends State<CovidBarState> {
     List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
     // data2.addAll({'Deaths': 25.0, 'Recovered': 25.0, 'Active': 25.0});
 
-    setState(() {
+
       int currentTap = StateScreen.getIndex();
 //      if (currentTap == null) currentTap = 0;
       print("current tap=${currentTap}");
@@ -44,7 +44,6 @@ class _CovidBarStateState extends State<CovidBarState> {
           'Active': globalDataVariable[3] * 1.0
         });
       }
-    });
     /*setState(() {
       //  int currentTap = 0;
       if (currentTap == 0) {

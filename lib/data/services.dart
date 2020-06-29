@@ -19,8 +19,8 @@ Future<Summary> fetchNationalData() async {
     // IndiaData.setIndiaData(
     //    ob.deaths, ob.discharged, ob.total - (ob.deaths + ob.discharged));
     // print(ob.deaths);
-    IndiaData.setIndiaData(ob.total, ob.deaths, ob.discharged,
-        ob.total - (ob.deaths + ob.discharged));
+    // IndiaData.setIndiaData(ob.total, ob.deaths, ob.discharged,
+    //   ob.total - (ob.deaths + ob.discharged));
     // IndiaData.getIndiaData();
     //List<int> abc = IndiaData.getIndiaData();
 

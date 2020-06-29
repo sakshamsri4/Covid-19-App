@@ -1,14 +1,15 @@
+import 'package:corona/data/data.dart';
 import 'package:corona/data/services.dart';
+import 'package:corona/widgets/covid_bar_chart.dart';
 import 'package:flutter/material.dart';
 
-class StatsGrid extends StatefulWidget {
+class Bridge extends StatefulWidget {
   @override
-  _StatsGridState createState() => _StatsGridState();
+  _BridgeState createState() => _BridgeState();
 }
 
-class _StatsGridState extends State<StatsGrid> {
+class _BridgeState extends State<Bridge> {
   Future<Summary> futureAlbum;
-//  IndiaData indiaData = IndiaData();
 
   @override
   void initState() {
@@ -41,32 +42,44 @@ class _StatsGridState extends State<StatsGrid> {
     /* dataIndia.add(summary.deaths);
     dataIndia.add(summary.discharged);
     dataIndia.add(summary.total - (summary.deaths + summary.discharged));*/
+    IndiaData.setIndiaData(summary.total, summary.deaths, summary.discharged,
+        summary.total - (summary.deaths + summary.discharged));
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(
         children: <Widget>[
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                _buildStatCard(
-                    'Total Cases India', '${summary.total}', Colors.orange),
-                _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
-              ],
-            ),
+          Column(
+            children: <Widget>[
+              Flexible(
+                child: Row(
+                  children: <Widget>[
+                    _buildStatCard(
+                        'Total Cases India', '${summary.total}', Colors.orange),
+                    _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: <Widget>[
+                    _buildStatCard(
+                        'Recovered', '${summary.discharged}', Colors.green),
+                    _buildStatCard(
+                        'Active',
+                        '${summary.total - (summary.deaths + summary.discharged)}',
+                        Colors.lightBlue),
+                    // _buildStatCard('Critical', 'N/A', Colors.purple),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                _buildStatCard(
-                    'Recovered', '${summary.discharged}', Colors.green),
-                _buildStatCard(
-                    'Active',
-                    '${summary.total - (summary.deaths + summary.discharged)}',
-                    Colors.lightBlue),
-                // _buildStatCard('Critical', 'N/A', Colors.purple),
-              ],
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 20.0),
+            sliver: SliverToBoxAdapter(
+              child: CovidBarState(),
             ),
-          ),
+          )
         ],
       ),
     );
