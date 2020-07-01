@@ -7,15 +7,16 @@ final prevention = [
 class IndiaData {
   //int death,recovery,active;
   static List<int> TotalDeathRecoveryActive = [];
+
   static List<int> getIndiaData() {
     //for (int i = 0; i < 4; i++) print(TotalDeathRecoveryActive[i]);
 
-    print("India");
     return TotalDeathRecoveryActive;
   }
 
   static void setIndiaData(int t, int d, int r, int a) {
     //if (DeathRecoveryActive == null) DeathRecoveryActive = List<int>();
+
     TotalDeathRecoveryActive.add(t);
     TotalDeathRecoveryActive.add(d);
     TotalDeathRecoveryActive.add(r);
@@ -27,7 +28,6 @@ class GlobalData {
   //int death,recovery,active;
   static List<int> TotalDeathRecoveryActive = [];
   static List<int> getGlobalData() {
-    print("Global");
     return TotalDeathRecoveryActive;
   }
 

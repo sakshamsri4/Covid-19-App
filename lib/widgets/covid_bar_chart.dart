@@ -15,7 +15,8 @@ class CovidBarState extends StatefulWidget {
 
 class _CovidBarStateState extends State<CovidBarState> {
   StateScreen stateScreen = StateScreen();
-
+  List<int> globalDataVariable = GlobalData.getGlobalData();
+  List<int> indiaDataVariable = IndiaData.getIndiaData();
   Map<String, double> data1 = new Map();
 
   @override
@@ -23,27 +24,24 @@ class _CovidBarStateState extends State<CovidBarState> {
     List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
     // data2.addAll({'Deaths': 25.0, 'Recovered': 25.0, 'Active': 25.0});
 
-
-      int currentTap = StateScreen.getIndex();
+    int currentTap = StateScreen.getIndex();
 //      if (currentTap == null) currentTap = 0;
-      print("current tap=${currentTap}");
-      if (currentTap == 0) {
-        List<int> indiaDataVariable = IndiaData.getIndiaData();
-        print("India");
-        data1.addAll({
-          'Deaths': indiaDataVariable[1] * 1.0,
-          'Recovered': indiaDataVariable[2] * 1.0,
-          'Active': indiaDataVariable[3] * 1.0
-        });
-      } else {
-        List<int> globalDataVariable = GlobalData.getGlobalData();
-        print(currentTap);
-        data1.addAll({
-          'Deaths': globalDataVariable[1] * 1.0,
-          'Recovered': globalDataVariable[2] * 1.0,
-          'Active': globalDataVariable[3] * 1.0
-        });
-      }
+    print("current tap=${currentTap}");
+    if (currentTap == 0) {
+      print("India");
+      data1.addAll({
+        'Deaths': indiaDataVariable[1] * 1.0,
+        'Recovered': indiaDataVariable[2] * 1.0,
+        'Active': indiaDataVariable[3] * 1.0
+      });
+    } else {
+      print(currentTap);
+      data1.addAll({
+        'Deaths': globalDataVariable[1] * 1.0,
+        'Recovered': globalDataVariable[2] * 1.0,
+        'Active': globalDataVariable[3] * 1.0
+      });
+    }
     /*setState(() {
       //  int currentTap = 0;
       if (currentTap == 0) {

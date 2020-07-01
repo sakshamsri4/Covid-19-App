@@ -1,8 +1,6 @@
-import 'package:corona/data/services.dart';
+import 'package:corona/data/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-List<int> globalData = [];
 
 class StatsGridGlobal extends StatefulWidget {
   @override
@@ -10,33 +8,7 @@ class StatsGridGlobal extends StatefulWidget {
 }
 
 class _StatsGridGlobalState extends State<StatsGridGlobal> {
-  Future<GlobalSummary> futureAlbum;
-//  GlobalData globalData = GlobalData();
-  @override
-  void initState() {
-    super.initState();
-    futureAlbum = fetchGlobalData();
-  }
-
   Widget build(BuildContext context) {
-    return FutureBuilder<GlobalSummary>(
-      future: futureAlbum,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          // print(snapshot.data.newConfirmed.toString());
-          return test(snapshot.data);
-          // return Text('${snapshot.data}');
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-
-        // By default, show a loading spinner.
-        return CircularProgressIndicator();
-      },
-    );
-  }
-
-  Widget test(GlobalSummary globalSummary) {
     /* globalData.add(globalSummary.totalDeaths);
     globalData.add(globalSummary.totalRecovered);
     globalData.add(globalSummary.totalConfirmed -
@@ -48,6 +20,8 @@ class _StatsGridGlobalState extends State<StatsGridGlobal> {
         globalSummary.totalConfirmed -
             (globalSummary.totalRecovered + globalSummary.totalDeaths));
 */
+
+    List<int> globalSummaryData = GlobalData.getGlobalData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       //color: Colors.yellow,
@@ -56,21 +30,21 @@ class _StatsGridGlobalState extends State<StatsGridGlobal> {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStateCard('Total Global Cases',
-                    '${globalSummary.totalConfirmed}', Colors.orange),
+                _buildStateCard('Total Global Cases', '${globalSummaryData[0]}',
+                    Colors.orange),
                 _buildStateCard(
-                    'Deaths', '${globalSummary.totalDeaths}', Colors.red),
+                    'Deaths', '${globalSummaryData[1]}', Colors.red),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStateCard('Recovered', '${globalSummary.totalRecovered}',
-                    Colors.green),
+                _buildStateCard(
+                    'Recovered', '${globalSummaryData[2]}', Colors.green),
                 _buildStateCard(
                     'Active',
-                    '${globalSummary.totalConfirmed - (globalSummary.totalRecovered + globalSummary.totalDeaths)}',
+                    '${globalSummaryData[0] - (globalSummaryData[1] + globalSummaryData[2])}',
                     Colors.lightBlue),
                 // _buildStateCard('Critical', '8,944', Colors.purple),
               ],

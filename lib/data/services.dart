@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:corona/data/data.dart';
 import 'package:http/http.dart' as http;
 
 Future<Summary> fetchNationalData() async {
@@ -81,12 +80,6 @@ Future<GlobalSummary> fetchGlobalData() async {
     //  print(abc[0]);
     // print(ob.totalConfirmed);
     //  print(ob.totalDeaths);
-
-    GlobalData.setGlobalData(
-        ob.totalConfirmed,
-        ob.totalDeaths,
-        ob.totalRecovered,
-        (ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths)));
 
     // print(ob.totalRecovered);
     // print(ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));

@@ -1,6 +1,5 @@
 import 'package:corona/data/data.dart';
 import 'package:corona/data/services.dart';
-import 'package:corona/widgets/covid_bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class Bridge extends StatefulWidget {
@@ -48,38 +47,76 @@ class _BridgeState extends State<Bridge> {
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(
         children: <Widget>[
-          Column(
+          Flexible(
+            child: Row(
+              children: <Widget>[
+                _buildStatCard(
+                    'Total Cases India', '${summary.total}', Colors.orange),
+                _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
+              ],
+            ),
+          ),
+          Flexible(
+            child: Row(
+              children: <Widget>[
+                _buildStatCard(
+                    'Recovered', '${summary.discharged}', Colors.green),
+                _buildStatCard(
+                    'Active',
+                    '${summary.total - (summary.deaths + summary.discharged)}',
+                    Colors.lightBlue),
+                // _buildStatCard('Critical', 'N/A', Colors.purple),
+              ],
+            ),
+          ),
+          Container(
+              child: Column(
             children: <Widget>[
-              Flexible(
-                child: Row(
-                  children: <Widget>[
-                    _buildStatCard(
-                        'Total Cases India', '${summary.total}', Colors.orange),
-                    _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
-                  ],
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'Pie Chart',
+                    style: const TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
                 ),
               ),
-              Flexible(
-                child: Row(
-                  children: <Widget>[
-                    _buildStatCard(
-                        'Recovered', '${summary.discharged}', Colors.green),
-                    _buildStatCard(
-                        'Active',
-                        '${summary.total - (summary.deaths + summary.discharged)}',
-                        Colors.lightBlue),
-                    // _buildStatCard('Critical', 'N/A', Colors.purple),
-                  ],
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'Pie Chart',
+                    style: const TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'Pie Chart',
+                    style: const TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
                 ),
               ),
             ],
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 20.0),
-            sliver: SliverToBoxAdapter(
-              child: CovidBarState(),
-            ),
-          )
+          )),
+          /*SizedBox(
+            height: 200.0,
+            //  child: CovidBarState(),
+          ),*/
         ],
       ),
     );

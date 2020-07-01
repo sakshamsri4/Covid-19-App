@@ -1,4 +1,4 @@
-import 'package:corona/data/services.dart';
+import 'package:corona/data/idata.dart';
 import 'package:flutter/material.dart';
 
 class StatsGrid extends StatefulWidget {
@@ -7,40 +7,14 @@ class StatsGrid extends StatefulWidget {
 }
 
 class _StatsGridState extends State<StatsGrid> {
-  Future<Summary> futureAlbum;
-//  IndiaData indiaData = IndiaData();
-
-  @override
-  void initState() {
-    super.initState();
-    futureAlbum = fetchNationalData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Summary>(
-      future: futureAlbum,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          // print(snapshot.data.total.toString());
-          return test(snapshot.data);
-          // return Text('${snapshot.data}');
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-
-        // By default, show a loading spinner.
-        return CircularProgressIndicator();
-      },
-    );
-  }
-
-  Widget test(Summary summary) {
     //IndiaData.setIndiaData(summary.deaths, summary.discharged,
     //  summary.total - (summary.deaths + summary.discharged));
     /* dataIndia.add(summary.deaths);
     dataIndia.add(summary.discharged);
     dataIndia.add(summary.total - (summary.deaths + summary.discharged));*/
+    List<int> indiaDataVariable = IData.getObject().getIData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(
@@ -48,9 +22,9 @@ class _StatsGridState extends State<StatsGrid> {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard(
-                    'Total Cases India', '${summary.total}', Colors.orange),
-                _buildStatCard('Deaths', '${summary.deaths}', Colors.red),
+                _buildStatCard('Total Cases India', '${indiaDataVariable[0]}',
+                    Colors.orange),
+                _buildStatCard('Deaths', '${indiaDataVariable[1]}', Colors.red),
               ],
             ),
           ),
@@ -58,11 +32,9 @@ class _StatsGridState extends State<StatsGrid> {
             child: Row(
               children: <Widget>[
                 _buildStatCard(
-                    'Recovered', '${summary.discharged}', Colors.green),
+                    'Recovered', '${indiaDataVariable[2]}', Colors.green),
                 _buildStatCard(
-                    'Active',
-                    '${summary.total - (summary.deaths + summary.discharged)}',
-                    Colors.lightBlue),
+                    'Active', '${indiaDataVariable[3]}', Colors.lightBlue),
                 // _buildStatCard('Critical', 'N/A', Colors.purple),
               ],
             ),
