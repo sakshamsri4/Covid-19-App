@@ -6,21 +6,32 @@ final prevention = [
 
 class IndiaData {
   //int death,recovery,active;
-  static List<int> TotalDeathRecoveryActive = [];
+  static int total;
+  static int death;
+  static int recovery;
+  static int active;
 
-  static List<int> getIndiaData() {
+  int getIndiaData() {
     //for (int i = 0; i < 4; i++) print(TotalDeathRecoveryActive[i]);
-
-    return TotalDeathRecoveryActive;
+    //List<int> TotalDeathRecoveryActive = [total, death, recovery, active];
+    //List<int> TotalDeathRecoveryActive = [1, 2, 3, 4];
+    int a = 6;
+    return total;
   }
 
-  static void setIndiaData(int t, int d, int r, int a) {
+  void setIndiaData(int t, int d, int r, int a) {
     //if (DeathRecoveryActive == null) DeathRecoveryActive = List<int>();
+    total = t;
+    death = d;
+    recovery = r;
+    active = a;
+  }
 
-    TotalDeathRecoveryActive.add(t);
-    TotalDeathRecoveryActive.add(d);
-    TotalDeathRecoveryActive.add(r);
-    TotalDeathRecoveryActive.add(a);
+  void display() {
+    print(total);
+    print(death);
+    print(recovery);
+    print(active);
   }
 }
 

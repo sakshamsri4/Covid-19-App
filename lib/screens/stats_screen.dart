@@ -8,6 +8,7 @@ import 'package:corona/widgets/custom_app_bar.dart';
 import 'package:corona/widgets/stats_grid.dart';
 import 'package:corona/widgets/stats_grid_gloabal.dart';
 import 'package:flutter/material.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class StateScreen extends StatefulWidget {
   @override
@@ -19,9 +20,13 @@ class StateScreen extends StatefulWidget {
 
 class _StateScreenState extends State<StateScreen> {
   static int currentTap = 0;
+  IndiaData indiaData = IndiaData();
   List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
   Future<Summary> futureAlbum;
   Future<GlobalSummary> futureAlbumGlobal;
+  Map<String, double> data1 = new Map();
+  Map<String, double> data2 = new Map();
+  Map<String, double> data3 = new Map();
 //  IndiaData indiaData = IndiaData();
 
   @override
@@ -65,6 +70,19 @@ class _StateScreenState extends State<StateScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // print(snapshot.data.total.toString());
+          indiaData.setIndiaData(
+              snapshot.data.total,
+              snapshot.data.deaths,
+              snapshot.data.discharged,
+              snapshot.data.total -
+                  (snapshot.data.deaths + snapshot.data.discharged));
+          data1.addAll({
+            'Deaths': snapshot.data.deaths * 1.0,
+            'Recovered': snapshot.data.discharged * 1.0,
+            'Active': snapshot.data.total -
+                (snapshot.data.deaths + snapshot.data.discharged) * 1.0
+          });
+          print(data1);
           IData.getObject().setIData(
               snapshot.data.total,
               snapshot.data.deaths,
@@ -72,7 +90,7 @@ class _StateScreenState extends State<StateScreen> {
               snapshot.data.total -
                   (snapshot.data.deaths + snapshot.data.discharged));
 
-          List<int> abc = IndiaData.getIndiaData();
+          //   List<int> abc = IndiaData.getIndiaData();
 
           return StatsGrid();
           //return Text("${snapshot.error}");
@@ -100,7 +118,12 @@ class _StateScreenState extends State<StateScreen> {
               snapshot.data.totalRecovered,
               snapshot.data.totalConfirmed -
                   (snapshot.data.totalRecovered + snapshot.data.totalDeaths));
-
+          data2.addAll({
+            'Deaths': snapshot.data.totalDeaths * 1.0,
+            'Recovered': snapshot.data.totalRecovered * 1.0,
+            'Active': snapshot.data.totalConfirmed -
+                (snapshot.data.totalRecovered + snapshot.data.totalDeaths) * 1.0
+          });
           return StatsGridGlobal();
           // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
@@ -117,26 +140,16 @@ class _StateScreenState extends State<StateScreen> {
   Widget buildCovidBarState() {
     //Covid data pie Future Builder Summary
     List<int> globalDataVariable = GlobalData.getGlobalData();
-    List<int> indiaDataVariable = IData.getObject().getIData();
-    Map<String, double> data1 = new Map();
-    print(indiaDataVariable[0]);
+    //List<int> indiaDataVariable = IData.getObject().getIData();
     // print(indiaDataVariable[0]);
     //print(globalDataVariable[0]);
-    /*if (currentTap == 0) {
-      print("India");
-      data1.addAll({
-        'Deaths': indiaDataVariable[0] * 1.0,
-        'Recovered': indiaDataVariable[1] * 1.0,
-        'Active': indiaDataVariable[2] * 1.0
-      });
+    if (currentTap == 0) {
+      print("india");
+      data3 = data1;
     } else {
-      print(currentTap);
-      data1.addAll({
-        'Deaths': globalDataVariable[0] * 1.0,
-        'Recovered': globalDataVariable[1] * 1.0,
-        'Active': globalDataVariable[2] * 1.0
-      });
-    }*/
+      print("global");
+      data3 = data2;
+    }
 
     return Container(
       //height: 350.0,
@@ -163,10 +176,10 @@ class _StateScreenState extends State<StateScreen> {
               ),
             ),
           ),
-/*          Container(
+          Container(
             width: MediaQuery.of(context).size.width * 0.85,
             child: PieChart(
-              dataMap: data1,
+              dataMap: data3,
               colorList: _colors,
               // if not declared, random colors will be chosen
               animationDuration: Duration(milliseconds: 1500),
@@ -189,12 +202,11 @@ class _StateScreenState extends State<StateScreen> {
               ),
               chartType: ChartType.disc, //can be changed to ChartType.ring
             ),
-          ),*/
+          ),
         ],
       ),
     );
   }
-/* To be implemented   */
 
   SliverPadding _buildHeaders() {
     return SliverPadding(

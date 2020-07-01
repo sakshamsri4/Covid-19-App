@@ -1,4 +1,4 @@
-import 'package:corona/config/palette.dart';
+/*import 'package:corona/config/palette.dart';
 import 'package:corona/data/data.dart';
 import 'package:corona/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
@@ -119,3 +119,4 @@ class _CovidBarStateState extends State<CovidBarState> {
     );
   }
 }
+*/
