@@ -1,13 +1,13 @@
-class IData {
-  IData._privateConstructor();
-  static IData _ob = IData._privateConstructor();
+class GData {
+  GData._privateConstructor();
+  static GData _ob = GData._privateConstructor();
   List<int> data = [];
 
-  static IData getInstance() {
+  static GData getInstance() {
     return _ob;
   }
 
-  void setIData(int t, int d, int r, int a) {
+  void setGData(int t, int d, int r, int a) {
     if (data.length == 0) {
       data = [t, d, r, a];
 //      data.add(t);
@@ -17,7 +17,7 @@ class IData {
     }
   }
 
-  List<int> getIData() {
+  List<int> getGData() {
     return data;
   }
 }

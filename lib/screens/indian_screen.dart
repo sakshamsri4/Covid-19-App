@@ -1,19 +1,29 @@
 import 'package:corona/config/palette.dart';
 import 'package:corona/screens/indian_state.dart';
-import 'package:corona/widgets/covid_pie_chart.dart';
 import 'package:corona/widgets/custom_app_bar.dart';
 import 'package:corona/widgets/state_dropdown.dart';
 import 'package:flutter/material.dart';
 
-int v = 0;
+import '../data/services.dart';
+import 'indian_state.dart';
 
 class IndianScreen extends StatefulWidget {
   @override
   _IndianScreenState createState() => _IndianScreenState();
+  static int getIndex() {
+    _IndianScreenState.getIndex();
+  }
 }
 
 class _IndianScreenState extends State<IndianScreen> {
   String state = "Andaman and Nicobar Islands";
+  static int v = 0;
+  Future<List<Regional>> futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchRegionalData();
+  }
 
   static List<String> statesName = [
     "Andaman and Nicobar Islands",
@@ -70,14 +80,18 @@ class _IndianScreenState extends State<IndianScreen> {
                 child: IndianState(),
               ),
             ),
-            SliverPadding(
+            /*SliverPadding(
               padding: const EdgeInsets.only(top: 20.0),
               sliver: SliverToBoxAdapter(
                 child: CovidPieState(),
               ),
-            )
+            )*/
           ],
         ));
+  }
+
+  static int getIndex() {
+    return v;
   }
 
   SliverPadding _buildHeaders() {
@@ -106,6 +120,8 @@ class _IndianScreenState extends State<IndianScreen> {
           onChanged: (val) => setState(() {
             state = val;
             v = (statesName.indexOf(state));
+            print(v);
+            //Scount.getInstance().setSData(v);
           }),
         ),
       ],

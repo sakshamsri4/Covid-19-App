@@ -1,6 +1,7 @@
-import 'package:corona/data/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../data/gdata.dart';
 
 class StatsGridGlobal extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _StatsGridGlobalState extends State<StatsGridGlobal> {
             (globalSummary.totalRecovered + globalSummary.totalDeaths));
 */
 
-    List<int> globalSummaryData = GlobalData.getGlobalData();
+    List<int> globalSummaryData = GData.getInstance().getGData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       //color: Colors.yellow,

@@ -1,7 +1,6 @@
 import 'package:corona/config/palette.dart';
-import 'package:corona/screens/indian_state.dart';
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart'; // import the package
+import 'package:pie_chart/pie_chart.dart';
 
 class CovidPieState extends StatefulWidget {
   // final List<int> covidCases;
@@ -14,19 +13,22 @@ class CovidPieState extends StatefulWidget {
 
 class _CovidPieStateState extends State<CovidPieState> {
   Map<String, double> data1 = new Map();
-
+  int v = 0;
   @override
   Widget build(BuildContext context) {
     List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
 
     // print(dataIndianState[0]);
+    /* List<int> dataDeath = Sdeaths.getInstance().getSdeaths();
+    List<int> dataReover = Srecover.getInstance().getSrecover();
+    List<int> dataActive = Srecover.getInstance().getSrecover();
     setState(() {
       data1.addAll({
-        'Deaths': dataIndianState[0] * 1.0,
-        'Recovered': dataIndianState[1] * 1.0,
-        'Active': dataIndianState[2] * 1.0
+        'Deaths': dataDeath[v] * 1.0,
+        'Recovered': dataReover[v] * 1.0,
+        'Active': dataActive[v] * 1.0
       });
-    });
+    });*/
     return Container(
       height: 350.0,
       decoration: BoxDecoration(

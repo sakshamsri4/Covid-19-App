@@ -2,6 +2,7 @@ import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:corona/config/palette.dart';
 import 'package:corona/config/styles.dart';
 import 'package:corona/data/data.dart';
+import 'package:corona/data/gdata.dart';
 import 'package:corona/data/idata.dart';
 import 'package:corona/data/services.dart';
 import 'package:corona/widgets/custom_app_bar.dart';
@@ -24,9 +25,9 @@ class _StateScreenState extends State<StateScreen> {
   List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
   Future<Summary> futureAlbum;
   Future<GlobalSummary> futureAlbumGlobal;
-  Map<String, double> data1 = new Map();
-  Map<String, double> data2 = new Map();
-  Map<String, double> data3 = new Map();
+//  Map<String, double> data1 = new Map();
+//  Map<String, double> data2 = new Map();
+//  Map<String, double> data3 = new Map();
 //  IndiaData indiaData = IndiaData();
 
   @override
@@ -70,25 +71,25 @@ class _StateScreenState extends State<StateScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // print(snapshot.data.total.toString());
-          indiaData.setIndiaData(
-              snapshot.data.total,
-              snapshot.data.deaths,
-              snapshot.data.discharged,
-              snapshot.data.total -
-                  (snapshot.data.deaths + snapshot.data.discharged));
-          data1.addAll({
-            'Deaths': snapshot.data.deaths * 1.0,
-            'Recovered': snapshot.data.discharged * 1.0,
-            'Active': snapshot.data.total -
-                (snapshot.data.deaths + snapshot.data.discharged) * 1.0
-          });
-          print(data1);
-          IData.getObject().setIData(
-              snapshot.data.total,
-              snapshot.data.deaths,
-              snapshot.data.discharged,
-              snapshot.data.total -
-                  (snapshot.data.deaths + snapshot.data.discharged));
+//          indiaData.setIndiaData(
+//              snapshot.data.total,
+//              snapshot.data.deaths,
+//              snapshot.data.discharged,
+//              snapshot.data.total -
+//                  (snapshot.data.deaths + snapshot.data.discharged));
+//          data1.addAll({
+//            'Deaths': snapshot.data.deaths * 1.0,
+//            'Recovered': snapshot.data.discharged * 1.0,
+//            'Active': snapshot.data.total -
+//                (snapshot.data.deaths + snapshot.data.discharged) * 1.0
+//          });
+//          print(data1);
+//          IData.getObject().setIData(
+//              snapshot.data.total,
+//              snapshot.data.deaths,
+//              snapshot.data.discharged,
+//              snapshot.data.total -
+//                  (snapshot.data.deaths + snapshot.data.discharged));
 
           //   List<int> abc = IndiaData.getIndiaData();
 
@@ -112,18 +113,18 @@ class _StateScreenState extends State<StateScreen> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // print(snapshot.data.newConfirmed.toString());
-          GlobalData.setGlobalData(
-              snapshot.data.totalConfirmed,
-              snapshot.data.totalDeaths,
-              snapshot.data.totalRecovered,
-              snapshot.data.totalConfirmed -
-                  (snapshot.data.totalRecovered + snapshot.data.totalDeaths));
-          data2.addAll({
-            'Deaths': snapshot.data.totalDeaths * 1.0,
-            'Recovered': snapshot.data.totalRecovered * 1.0,
-            'Active': snapshot.data.totalConfirmed -
-                (snapshot.data.totalRecovered + snapshot.data.totalDeaths) * 1.0
-          });
+//          GlobalData.setGlobalData(
+//              snapshot.data.totalConfirmed,
+//              snapshot.data.totalDeaths,
+//              snapshot.data.totalRecovered,
+//              snapshot.data.totalConfirmed -
+//                  (snapshot.data.totalRecovered + snapshot.data.totalDeaths));
+//          data2.addAll({
+//            'Deaths': snapshot.data.totalDeaths * 1.0,
+//            'Recovered': snapshot.data.totalRecovered * 1.0,
+//            'Active': snapshot.data.totalConfirmed -
+//                (snapshot.data.totalRecovered + snapshot.data.totalDeaths) * 1.0
+//          });
           return StatsGridGlobal();
           // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
@@ -139,16 +140,16 @@ class _StateScreenState extends State<StateScreen> {
 
   Widget buildCovidBarState() {
     //Covid data pie Future Builder Summary
-    List<int> globalDataVariable = GlobalData.getGlobalData();
+    //  List<int> globalDataVariable = GlobalData.getGlobalData();
     //List<int> indiaDataVariable = IData.getObject().getIData();
     // print(indiaDataVariable[0]);
     //print(globalDataVariable[0]);
     if (currentTap == 0) {
       print("india");
-      data3 = data1;
+      //data3 = data1;
     } else {
       print("global");
-      data3 = data2;
+      //data3 = data2;
     }
 
     return Container(
@@ -170,40 +171,114 @@ class _StateScreenState extends State<StateScreen> {
               child: Text(
                 'Pie Chart',
                 style: const TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: PieChart(
-              dataMap: data3,
-              colorList: _colors,
-              // if not declared, random colors will be chosen
-              animationDuration: Duration(milliseconds: 1500),
-              // chartLegendSpacing: 32.0,
-              chartRadius: MediaQuery.of(context).size.width / 1.8,
-              //determines the size of the chart
-              showChartValuesInPercentage: true,
-              showChartValues: true,
-              showChartValuesOutside: false,
-              chartValueBackgroundColor: Colors.grey[200],
-              showLegends: false,
-              //legendPosition: LegendPosition.right,
-              //can be changed to top, left, bottom
-              decimalPlaces: 1,
+          currentTap == 0 ? covidIndiaChart() : covidGlobalChart(),
 
-              showChartValueLabel: true,
-              initialAngle: 200,
-              chartValueStyle: defaultChartValueStyle.copyWith(
-                color: Colors.blueGrey[900].withOpacity(0.9),
-              ),
-              chartType: ChartType.disc, //can be changed to ChartType.ring
-            ),
-          ),
+//          Container(
+//            width: MediaQuery.of(context).size.width * 0.85,
+//            child: PieChart(
+//              dataMap: data3,
+//              colorList: _colors,
+//              // if not declared, random colors will be chosen
+//              animationDuration: Duration(milliseconds: 1500),
+//              // chartLegendSpacing: 32.0,
+//              chartRadius: MediaQuery.of(context).size.width / 1.8,
+//              //determines the size of the chart
+//              showChartValuesInPercentage: true,
+//              showChartValues: true,
+//              showChartValuesOutside: false,
+//              chartValueBackgroundColor: Colors.grey[200],
+//              showLegends: false,
+//              //legendPosition: LegendPosition.right,
+//              //can be changed to top, left, bottom
+//              decimalPlaces: 1,
+//
+//              showChartValueLabel: true,
+//              initialAngle: 200,
+//              chartValueStyle: defaultChartValueStyle.copyWith(
+//                color: Colors.blueGrey[900].withOpacity(0.9),
+//              ),
+//              chartType: ChartType.disc, //can be changed to ChartType.ring
+//            ),
+//          ),
         ],
+      ),
+    );
+  }
+
+  Widget covidIndiaChart() {
+    return FutureBuilder<Summary>(
+      future: futureAlbum,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<int> idata = IData.getInstance().getIData();
+          return buildPieChart(idata);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
+  Widget covidGlobalChart() {
+    return FutureBuilder<GlobalSummary>(
+      future: futureAlbumGlobal,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<int> gdata = GData.getInstance().getGData();
+          return buildPieChart(gdata);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
+  Widget buildPieChart(List<int> igdata) {
+    Map<String, double> data = new Map();
+    data.addAll({
+      'Deaths': igdata[1] * 1.0,
+      'Recovered': igdata[2] * 1.0,
+      'Active': igdata[3] * 1.0
+    });
+
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.85,
+      child: PieChart(
+        dataMap: data,
+        colorList: _colors,
+        // if not declared, random colors will be chosen
+        animationDuration: Duration(milliseconds: 1500),
+        // chartLegendSpacing: 32.0,
+        chartRadius: MediaQuery.of(context).size.width / 1.8,
+        //determines the size of the chart
+        showChartValuesInPercentage: true,
+        showChartValues: true,
+        showChartValuesOutside: false,
+        chartValueBackgroundColor: Colors.grey[200],
+        showLegends: false,
+        //legendPosition: LegendPosition.right,
+        //can be changed to top, left, bottom
+        decimalPlaces: 1,
+
+        showChartValueLabel: true,
+        initialAngle: 200,
+        chartValueStyle: defaultChartValueStyle.copyWith(
+          color: Colors.blueGrey[900].withOpacity(0.9),
+        ),
+        chartType: ChartType.disc, //can be changed to ChartType.ring
       ),
     );
   }

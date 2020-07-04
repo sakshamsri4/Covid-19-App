@@ -14,7 +14,7 @@ class _StatsGridState extends State<StatsGrid> {
     /* dataIndia.add(summary.deaths);
     dataIndia.add(summary.discharged);
     dataIndia.add(summary.total - (summary.deaths + summary.discharged));*/
-    List<int> indiaDataVariable = IData.getObject().getIData();
+    List<int> indiaDataVariable = IData.getInstance().getIData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
       child: Column(

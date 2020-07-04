@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'gdata.dart';
+import 'idata.dart';
+
 Future<Summary> fetchNationalData() async {
   final response =
       await http.get('https://api.rootnet.in/covid19-in/stats/latest');
@@ -22,7 +25,8 @@ Future<Summary> fetchNationalData() async {
     //   ob.total - (ob.deaths + ob.discharged));
     // IndiaData.getIndiaData();
     //List<int> abc = IndiaData.getIndiaData();
-
+    IData.getInstance().setIData(ob.total, ob.deaths, ob.discharged,
+        ob.total - (ob.deaths + ob.discharged));
     return ob;
     // return Summary.fromJson(rest["summary"]);
   } else {
@@ -83,6 +87,11 @@ Future<GlobalSummary> fetchGlobalData() async {
 
     // print(ob.totalRecovered);
     // print(ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));
+    GData.getInstance().setGData(
+        ob.totalConfirmed,
+        ob.totalDeaths,
+        ob.totalRecovered,
+        ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));
     return ob;
   } else {
     // If the server did not return a 200 OK response,
@@ -132,7 +141,18 @@ Future<List<Regional>> fetchRegionalData() async {
     var rest = myData["regionData"] as List;
     // print(rest);
     list = rest.map<Regional>((json) => Regional.fromJson(json)).toList();
+    print("Regional");
     return list;
+    /*for (int i = 0; i < 35; i++) {
+      states ob = states();
+      ob.region = list[i].region;
+      ob.total = list[i].totalCases;
+      ob.death = list[i].deceased;
+      ob.reovered = list[i].recovered;
+      ob.active = list[i].totalInfected;
+      SData.getInstance().setSData(ob);
+    }*/
+
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

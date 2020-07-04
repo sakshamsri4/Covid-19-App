@@ -2,8 +2,7 @@ import 'package:corona/data/services.dart';
 import 'package:corona/screens/indian_screen.dart';
 import 'package:flutter/material.dart';
 
-List<int> dataIndianState = [];
-void getData() {}
+import 'indian_screen.dart';
 
 class IndianState extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class _IndianStateState extends State<IndianState> {
   Future<List<Regional>> futureAlbum;
   IndianScreen indianScreenVariable = IndianScreen();
   List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
-
+  int v = 0;
   @override
   void initState() {
     super.initState();
@@ -41,6 +40,7 @@ class _IndianStateState extends State<IndianState> {
 
   Widget test(List<Regional> regional) {
     //  dataIndianState = [];
+/*    List<int> data
     dataIndianState.addAll({
       regional[v].deceased,
       regional[v].recovered,
@@ -48,7 +48,7 @@ class _IndianStateState extends State<IndianState> {
     });
     dataIndianState[0] = regional[v].deceased;
     dataIndianState[1] = regional[v].recovered;
-    dataIndianState[2] = regional[v].totalInfected;
+    dataIndianState[2] = regional[v].totalInfected;*/
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       margin: const EdgeInsets.symmetric(vertical: 10.0),
