@@ -9,11 +9,6 @@ class StatsGrid extends StatefulWidget {
 class _StatsGridState extends State<StatsGrid> {
   @override
   Widget build(BuildContext context) {
-    //IndiaData.setIndiaData(summary.deaths, summary.discharged,
-    //  summary.total - (summary.deaths + summary.discharged));
-    /* dataIndia.add(summary.deaths);
-    dataIndia.add(summary.discharged);
-    dataIndia.add(summary.total - (summary.deaths + summary.discharged));*/
     List<int> indiaDataVariable = IData.getInstance().getIData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,

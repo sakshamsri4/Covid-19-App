@@ -12,15 +12,10 @@ class IndiaData {
   static int active;
 
   int getIndiaData() {
-    //for (int i = 0; i < 4; i++) print(TotalDeathRecoveryActive[i]);
-    //List<int> TotalDeathRecoveryActive = [total, death, recovery, active];
-    //List<int> TotalDeathRecoveryActive = [1, 2, 3, 4];
-    int a = 6;
     return total;
   }
 
   void setIndiaData(int t, int d, int r, int a) {
-    //if (DeathRecoveryActive == null) DeathRecoveryActive = List<int>();
     total = t;
     death = d;
     recovery = r;

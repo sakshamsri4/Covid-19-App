@@ -217,7 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     launch(
                         "https://covid.apollo247.com/?utm_source=linkedin&utm_medium=organic&utm_campaign=bot_scanner");
                   },
-                  //   'https://covid.apollo247.com/?utm_source=linkedin&utm_medium=organic&utm_campaign=bot_scanner'),
                   child: Text(
                     'Follow the instructions\nto do your own test.',
                     style: const TextStyle(

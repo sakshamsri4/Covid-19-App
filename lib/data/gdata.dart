@@ -10,10 +10,6 @@ class GData {
   void setGData(int t, int d, int r, int a) {
     if (data.length == 0) {
       data = [t, d, r, a];
-//      data.add(t);
-//      data.add(d);
-//      data.add(r);
-//      data.add(a);
     }
   }
 

@@ -25,10 +25,6 @@ class _StateScreenState extends State<StateScreen> {
   List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
   Future<Summary> futureAlbum;
   Future<GlobalSummary> futureAlbumGlobal;
-//  Map<String, double> data1 = new Map();
-//  Map<String, double> data2 = new Map();
-//  Map<String, double> data3 = new Map();
-//  IndiaData indiaData = IndiaData();
 
   @override
   void initState() {
@@ -46,8 +42,6 @@ class _StateScreenState extends State<StateScreen> {
           CustomScrollView(physics: ClampingScrollPhysics(), slivers: <Widget>[
         _buildHeaders(),
         _buildRegionTabBar(),
-        // _buildStatsTabBar(),
-
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           sliver: SliverToBoxAdapter(
@@ -70,36 +64,10 @@ class _StateScreenState extends State<StateScreen> {
       future: futureAlbum,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // print(snapshot.data.total.toString());
-//          indiaData.setIndiaData(
-//              snapshot.data.total,
-//              snapshot.data.deaths,
-//              snapshot.data.discharged,
-//              snapshot.data.total -
-//                  (snapshot.data.deaths + snapshot.data.discharged));
-//          data1.addAll({
-//            'Deaths': snapshot.data.deaths * 1.0,
-//            'Recovered': snapshot.data.discharged * 1.0,
-//            'Active': snapshot.data.total -
-//                (snapshot.data.deaths + snapshot.data.discharged) * 1.0
-//          });
-//          print(data1);
-//          IData.getObject().setIData(
-//              snapshot.data.total,
-//              snapshot.data.deaths,
-//              snapshot.data.discharged,
-//              snapshot.data.total -
-//                  (snapshot.data.deaths + snapshot.data.discharged));
-
-          //   List<int> abc = IndiaData.getIndiaData();
-
           return StatsGrid();
-          //return Text("${snapshot.error}");
-          // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-
         // By default, show a loading spinner.
         return CircularProgressIndicator();
       },
@@ -112,19 +80,6 @@ class _StateScreenState extends State<StateScreen> {
       future: futureAlbumGlobal,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // print(snapshot.data.newConfirmed.toString());
-//          GlobalData.setGlobalData(
-//              snapshot.data.totalConfirmed,
-//              snapshot.data.totalDeaths,
-//              snapshot.data.totalRecovered,
-//              snapshot.data.totalConfirmed -
-//                  (snapshot.data.totalRecovered + snapshot.data.totalDeaths));
-//          data2.addAll({
-//            'Deaths': snapshot.data.totalDeaths * 1.0,
-//            'Recovered': snapshot.data.totalRecovered * 1.0,
-//            'Active': snapshot.data.totalConfirmed -
-//                (snapshot.data.totalRecovered + snapshot.data.totalDeaths) * 1.0
-//          });
           return StatsGridGlobal();
           // return Text('${snapshot.data}');
         } else if (snapshot.hasError) {
@@ -135,23 +90,9 @@ class _StateScreenState extends State<StateScreen> {
         return CircularProgressIndicator();
       },
     );
-/* To be implemented   */
   }
 
   Widget buildCovidBarState() {
-    //Covid data pie Future Builder Summary
-    //  List<int> globalDataVariable = GlobalData.getGlobalData();
-    //List<int> indiaDataVariable = IData.getObject().getIData();
-    // print(indiaDataVariable[0]);
-    //print(globalDataVariable[0]);
-    if (currentTap == 0) {
-      print("india");
-      //data3 = data1;
-    } else {
-      print("global");
-      //data3 = data2;
-    }
-
     return Container(
       //height: 350.0,
       decoration: BoxDecoration(
@@ -179,34 +120,6 @@ class _StateScreenState extends State<StateScreen> {
             ),
           ),
           currentTap == 0 ? covidIndiaChart() : covidGlobalChart(),
-
-//          Container(
-//            width: MediaQuery.of(context).size.width * 0.85,
-//            child: PieChart(
-//              dataMap: data3,
-//              colorList: _colors,
-//              // if not declared, random colors will be chosen
-//              animationDuration: Duration(milliseconds: 1500),
-//              // chartLegendSpacing: 32.0,
-//              chartRadius: MediaQuery.of(context).size.width / 1.8,
-//              //determines the size of the chart
-//              showChartValuesInPercentage: true,
-//              showChartValues: true,
-//              showChartValuesOutside: false,
-//              chartValueBackgroundColor: Colors.grey[200],
-//              showLegends: false,
-//              //legendPosition: LegendPosition.right,
-//              //can be changed to top, left, bottom
-//              decimalPlaces: 1,
-//
-//              showChartValueLabel: true,
-//              initialAngle: 200,
-//              chartValueStyle: defaultChartValueStyle.copyWith(
-//                color: Colors.blueGrey[900].withOpacity(0.9),
-//              ),
-//              chartType: ChartType.disc, //can be changed to ChartType.ring
-//            ),
-//          ),
         ],
       ),
     );
@@ -341,28 +254,4 @@ class _StateScreenState extends State<StateScreen> {
       ),
     );
   }
-
-  /* SliverPadding _buildStatsTabBar() {
-    return SliverPadding(
-      padding: const EdgeInsets.all(20.0),
-      sliver: SliverToBoxAdapter(
-        child: DefaultTabController(
-          length: 3,
-          child: TabBar(
-            indicatorColor: Colors.transparent,
-            labelStyle: Styles.tabTextStyle,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white60,
-            tabs: <Widget>[
-              Text('Total'),
-              Text('Today'),
-              Text('Yesterday'),
-            ],
-            onTap: (index) {},
-          ),
-        ),
-      ),
-    );
-  }*/
-
 }

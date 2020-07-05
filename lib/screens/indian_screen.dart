@@ -1,5 +1,7 @@
 import 'package:corona/config/palette.dart';
+import 'package:corona/data/state_data/state_count.dart';
 import 'package:corona/screens/indian_state.dart';
+import 'package:corona/widgets/covid_pie_chart.dart';
 import 'package:corona/widgets/custom_app_bar.dart';
 import 'package:corona/widgets/state_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -80,12 +82,12 @@ class _IndianScreenState extends State<IndianScreen> {
                 child: IndianState(),
               ),
             ),
-            /*SliverPadding(
+            SliverPadding(
               padding: const EdgeInsets.only(top: 20.0),
               sliver: SliverToBoxAdapter(
                 child: CovidPieState(),
               ),
-            )*/
+            )
           ],
         ));
   }
@@ -120,8 +122,7 @@ class _IndianScreenState extends State<IndianScreen> {
           onChanged: (val) => setState(() {
             state = val;
             v = (statesName.indexOf(state));
-            print(v);
-            //Scount.getInstance().setSData(v);
+            StateCount.getInstance().setIData(v);
           }),
         ),
       ],

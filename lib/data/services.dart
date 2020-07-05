@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:corona/data/state_data/sdata.dart';
 import 'package:http/http.dart' as http;
 
 import 'gdata.dart';
@@ -8,7 +9,7 @@ import 'idata.dart';
 Future<Summary> fetchNationalData() async {
   final response =
       await http.get('https://api.rootnet.in/covid19-in/stats/latest');
-  // print(response.body);
+
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
@@ -18,13 +19,6 @@ Future<Summary> fetchNationalData() async {
     // print(rest);
 
     Summary ob = Summary.fromJson(rest["summary"]);
-    // IndiaData.setIndiaData(
-    //    ob.deaths, ob.discharged, ob.total - (ob.deaths + ob.discharged));
-    // print(ob.deaths);
-    // IndiaData.setIndiaData(ob.total, ob.deaths, ob.discharged,
-    //   ob.total - (ob.deaths + ob.discharged));
-    // IndiaData.getIndiaData();
-    //List<int> abc = IndiaData.getIndiaData();
     IData.getInstance().setIData(ob.total, ob.deaths, ob.discharged,
         ob.total - (ob.deaths + ob.discharged));
     return ob;
@@ -66,7 +60,6 @@ class Summary {
 
 Future<GlobalSummary> fetchGlobalData() async {
   final response = await http.get('https://api.covid19api.com/summary');
-  // print(response.body);
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
@@ -75,18 +68,6 @@ Future<GlobalSummary> fetchGlobalData() async {
     var rest = myData["Global"];
     // print(rest);
     GlobalSummary ob = GlobalSummary.fromJson(myData["Global"]);
-    /* GlobalData.setGlobalData(
-        ob.totalConfirmed,
-        ob.totalDeaths,
-        ob.totalRecovered,
-        ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));*/
-    //  List<int> abc = GlobalData.getGlobalData();
-    //  print(abc[0]);
-    // print(ob.totalConfirmed);
-    //  print(ob.totalDeaths);
-
-    // print(ob.totalRecovered);
-    // print(ob.totalConfirmed - (ob.totalRecovered + ob.totalDeaths));
     GData.getInstance().setGData(
         ob.totalConfirmed,
         ob.totalDeaths,
@@ -137,13 +118,11 @@ Future<List<Regional>> fetchRegionalData() async {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     var myData = json.decode(response.body);
-    // print(myData);
     var rest = myData["regionData"] as List;
-    // print(rest);
+
     list = rest.map<Regional>((json) => Regional.fromJson(json)).toList();
-    print("Regional");
-    return list;
-    /*for (int i = 0; i < 35; i++) {
+
+    for (int i = 0; i < 35; i++) {
       states ob = states();
       ob.region = list[i].region;
       ob.total = list[i].totalCases;
@@ -151,8 +130,8 @@ Future<List<Regional>> fetchRegionalData() async {
       ob.reovered = list[i].recovered;
       ob.active = list[i].totalInfected;
       SData.getInstance().setSData(ob);
-    }*/
-
+    }
+    return list;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.

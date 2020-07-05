@@ -1,34 +1,50 @@
 import 'package:corona/config/palette.dart';
+import 'package:corona/data/services.dart';
+import 'package:corona/data/state_data/sdata.dart';
+import 'package:corona/data/state_data/state_count.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class CovidPieState extends StatefulWidget {
-  // final List<int> covidCases;
-
-  // const CovidBarState({Key key, this.covidCases}) : super(key: key);
-
   @override
   _CovidPieStateState createState() => _CovidPieStateState();
 }
 
 class _CovidPieStateState extends State<CovidPieState> {
   Map<String, double> data1 = new Map();
-  int v = 0;
+  Future<List<Regional>> futureAlbum;
+  @override
+  void initState() {
+    super.initState();
+    futureAlbum = fetchRegionalData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
+    return FutureBuilder<List<Regional>>(
+      future: futureAlbum,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return test(snapshot.data);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
 
-    // print(dataIndianState[0]);
-    /* List<int> dataDeath = Sdeaths.getInstance().getSdeaths();
-    List<int> dataReover = Srecover.getInstance().getSrecover();
-    List<int> dataActive = Srecover.getInstance().getSrecover();
-    setState(() {
-      data1.addAll({
-        'Deaths': dataDeath[v] * 1.0,
-        'Recovered': dataReover[v] * 1.0,
-        'Active': dataActive[v] * 1.0
-      });
-    });*/
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
+  Widget test(List<Regional> regional) {
+    int v = StateCount.data;
+    List<Color> _colors = [Colors.red, Colors.green, Colors.lightBlue];
+    List<states> regionalData = SData.getInstance().getSData();
+    data1.addAll({
+      'Deaths': regionalData[v].death * 1.0,
+      'Recovered': regionalData[v].reovered * 1.0,
+      'Active': regionalData[v].active * 1.0
+    });
     return Container(
       height: 350.0,
       decoration: BoxDecoration(

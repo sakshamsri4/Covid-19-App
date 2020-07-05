@@ -10,22 +10,9 @@ class StatsGridGlobal extends StatefulWidget {
 
 class _StatsGridGlobalState extends State<StatsGridGlobal> {
   Widget build(BuildContext context) {
-    /* globalData.add(globalSummary.totalDeaths);
-    globalData.add(globalSummary.totalRecovered);
-    globalData.add(globalSummary.totalConfirmed -
-        (globalSummary.totalRecovered + globalSummary.totalDeaths));*/
-
-    /*  GlobalData.setGlobalData(
-        globalSummary.totalDeaths,
-        globalSummary.totalRecovered,
-        globalSummary.totalConfirmed -
-            (globalSummary.totalRecovered + globalSummary.totalDeaths));
-*/
-
     List<int> globalSummaryData = GData.getInstance().getGData();
     return Container(
       height: MediaQuery.of(context).size.height * 0.25,
-      //color: Colors.yellow,
       child: Column(
         children: <Widget>[
           Flexible(
