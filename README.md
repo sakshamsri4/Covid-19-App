@@ -3,10 +3,14 @@
 A new Flutter application.
 
 ## Getting Started
+<img src="s1.jpg" widt="200" height="200">
 
-![](s1.jpg)
-![](s2.jpg)
-![](s3.jpg)
-![](s4.jpg)
-![](s5.jpg)
-![](s6.jpg)
+<img src="s2.jpg" widt="200" height="200">
+
+<img src="s3.jpg" widt="200" height="200">
+
+<img src="s4.jpg" widt="200" height="200">
+
+<img src="s5.jpg" widt="200" height="200">
+
+<img src="s6.jpg" widt="200" height="200">
